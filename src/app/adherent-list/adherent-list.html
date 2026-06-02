@@ -1,15 +1,13 @@
 
-<div class="mb-3">
-  <label for="search" class="form-label">Rechercher</label>
-  <input type="email" class="form-control" id="search" placeholder="Votre recherche..." (input)="recherche($event)">
-</div>
+<!-- UN SELECT POUR SELECTIONNER L'ADHERENT DANS UNE LISTE -->
+<select class="form-select mb-3" aria-label="Select adhérent" (change)="onAdherentSelect($event)">
+  <option selected>Sélectionner adhérent</option>
 
-<h3>Adherents : {{ adherentsFiltres.length }} résultat(s)"</h3>
+  @for (item of adherents; track $index) {
+    <option [value]="item.id">{{ item.prenom }} {{ item.nom }}</option>
+  }
+</select>
 
-@for (adherent of adherentsFiltres; track adherent.id) {
-    <app-adherent-card [adherent]="adherent" (voirDetails)="gererVoirDetail($event)">
-    </app-adherent-card>
-} @empty {
-    <div>Aucun adhérent trouvé</div>
-}
+<!-- LE COMPOSANT CARD QUI SE MET A JOUR EN FONCITON DE LA SELECTION -->
+<app-adherent-card [adherent]="selectedAdherent"></app-adherent-card>
 

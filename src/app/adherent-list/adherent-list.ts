@@ -69,6 +69,7 @@ export const adherents: Adherent[] = [
 export class AdherentList implements OnInit {
   readonly adherents = adherents;
   adherentsFiltres = adherents;
+  selectedAdherent?: Adherent;
 
   
   gererVoirDetail($event: Adherent) {
@@ -81,6 +82,19 @@ export class AdherentList implements OnInit {
     this.adherentsFiltres = this.adherents.filter(el => el.nom.startsWith(value));
   }
 
+  onAdherentSelect(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const adherentId = Number(select.value);
+
+    if (!select.value) {
+      this.selectedAdherent = undefined;
+      return;
+    }
+
+    this.selectedAdherent = this.adherents.find(
+      adherent => adherent.id === adherentId
+    );
+  }
   
   ngOnInit(): void {
     console.log("Initialisation")

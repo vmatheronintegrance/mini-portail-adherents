@@ -1,3 +1,4 @@
+import { adherents } from './../adherent-list/adherent-list';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { Adherent } from '../models/adherent';
 import { DatePipe, JsonPipe, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
@@ -22,10 +23,9 @@ export class AdherentCard implements OnDestroy, OnChanges {
   ngOnDestroy(): void {
     console.log("destruction card : ", this.adherent?.id);
   }
-
   
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("changements détectés")
+    console.log("changements détectés");
+    console.log(changes);
   }
-
 }
