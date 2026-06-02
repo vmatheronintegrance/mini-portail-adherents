@@ -1,0 +1,28 @@
+@if (adherent) {
+
+    <div class="card mb-3">
+        <div class="card-header">
+            {{ adherent.prenom | titlecase}} {{ adherent.nom | uppercase }}
+        </div>
+        <div class="card-body">
+            <div>Date d'adhésion : {{ adherent.dateAdhesion | date:'dd MMMM yy' }}</div>
+            <div>{{ adherent.email }}</div>
+            <div>{{ adherent.telephone }}</div>
+            <div>
+                Statut : {{ adherent.statut | statut}}
+            </div>
+            @if (estNouveau(adherent.dateAdhesion)) {
+                <span>Nouveau</span>
+            }
+
+            <div class="mt-3">
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        (click)="voirDetails.emit(adherent)">
+
+                    Voir Détails
+                </button>
+            </div>
+        </div>
+    </div>
+}
