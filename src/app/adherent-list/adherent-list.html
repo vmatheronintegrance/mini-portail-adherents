@@ -4,7 +4,9 @@
   <input type="email" class="form-control" id="search" placeholder="Votre recherche..." (input)="recherche($event)">
 </div>
 
-<h3>Adherents : {{ adherentsFiltres.length }} résultat(s)"</h3>
+@if (adherentsFiltres) {
+    <h3>Adherents : {{ adherentsFiltres.length}} résultat(s)</h3>
+}
 
 @for (adherent of adherentsFiltres; track adherent.id) {
     <app-adherent-card [adherent]="adherent" (voirDetails)="gererVoirDetail($event)">

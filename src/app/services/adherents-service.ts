@@ -68,6 +68,8 @@ export class AdherentsService {
     return adherents;
   }
 
-
+  getById(id: number): Adherent | undefined {
+    return adherents.find(el => el.id === id);
+  }
 
 }

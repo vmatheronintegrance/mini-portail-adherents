@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdherentCard } from "../adherent-card/adherent-card";
 import { Adherent } from '../models/adherent';
 import { AdherentsService } from '../services/adherents-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adherent-list',
@@ -11,17 +12,21 @@ import { AdherentsService } from '../services/adherents-service';
 })
 export class AdherentList implements OnInit {
   adherents!: Adherent[];
-  adherentsFiltres!: Adherent[];
+  adherentsFiltres: Adherent[] | undefined;
   selectedAdherent?: Adherent;
 
-  constructor(private adherentsService: AdherentsService) {}
+  constructor(private adherentsService: AdherentsService,
+              private router: Router) {
+  }
 
   ngOnInit(): void {
     this.adherents = this.adherentsService.getAll();
+    this.adherentsFiltres = this.adherents;
   }
   
   gererVoirDetail($event: Adherent) {
-    $event.nom = $event.nom.toUpperCase();
+    const id = $event.id;
+    this.router.navigate(["adherents", id]);
   }
 
   recherche($event: Event) {

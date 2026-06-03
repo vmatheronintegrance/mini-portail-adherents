@@ -10,7 +10,6 @@ import { StatutPipe } from '../pipes/statut-pipe';
   styleUrl: './adherent-card.scss',
 })
 export class AdherentCard {
-  
 
   @Input() adherent: Adherent | undefined;
   @Output() voirDetails = new EventEmitter<Adherent>;

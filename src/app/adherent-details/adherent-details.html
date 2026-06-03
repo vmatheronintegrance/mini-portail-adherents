@@ -1,0 +1,8 @@
+@if(adherent) {
+    <h5 class="mt-3">Détails adhérent</h5>
+    <p>Nom : {{ adherent.prenom | titlecase }} {{ adherent.nom | uppercase}}</p>
+    <p>Statut : {{ adherent.statut | statut }}</p>
+    <p>Ville : {{ adherent.ville }}</p>
+} @else {
+    <h5 class="mt-3">Adhérent non trouvé !!</h5>
+}
