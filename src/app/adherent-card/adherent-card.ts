@@ -9,7 +9,7 @@ import { StatutPipe } from '../pipes/statut-pipe';
   templateUrl: './adherent-card.html',
   styleUrl: './adherent-card.scss',
 })
-export class AdherentCard implements OnDestroy, OnChanges {
+export class AdherentCard {
   
 
   @Input() adherent: Adherent | undefined;
@@ -18,14 +18,4 @@ export class AdherentCard implements OnDestroy, OnChanges {
   estNouveau(dateAdhesion: string): boolean {
     return true;
   }
-
-  ngOnDestroy(): void {
-    console.log("destruction card : ", this.adherent?.id);
-  }
-
-  
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log("changements détectés")
-  }
-
 }
