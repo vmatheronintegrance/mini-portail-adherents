@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, input, Input, OnChanges, OnDestroy, output, Output, SimpleChanges } from '@angular/core';
 import { Adherent } from '../models/adherent';
 import { DatePipe, JsonPipe, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { StatutPipe } from '../pipes/statut-pipe';
@@ -11,8 +11,12 @@ import { StatutPipe } from '../pipes/statut-pipe';
 })
 export class AdherentCard {
 
-  @Input() adherent: Adherent | undefined;
-  @Output() voirDetails = new EventEmitter<Adherent>;
+  // @Input() adherent: Adherent | undefined;
+
+  adherent = input<Adherent | undefined>();
+  voirDetails = output<Adherent>();
+
+  // @Output() voirDetails = new EventEmitter<Adherent>;
    
   estNouveau(dateAdhesion: string): boolean {
     return true;

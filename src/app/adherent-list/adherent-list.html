@@ -1,17 +1,23 @@
 
-<div class="mb-3">
-  <label for="search" class="form-label">Rechercher</label>
-  <input type="email" class="form-control" id="search" placeholder="Votre recherche..." (input)="recherche($event)">
-</div>
+@if(adherents$ | async) {
+    <div class="mb-3">
+        <label for="search" class="form-label">Rechercher</label>
+        <input type="text" class="form-control" id="search" 
+                placeholder="Votre recherche..." (input)="recherche($event)">
+    </div>
 
-@if (adherentsFiltres) {
-    <h3>Adherents : {{ adherentsFiltres.length}} résultat(s)</h3>
+    <p>Nombre d'adhérents : {{ adherentsFiltres().length }} !</p>
+
+    @for (adherent of adherentsFiltres(); track adherent.id) {
+        <app-adherent-card [adherent]="adherent" (voirDetails)="gererVoirDetail($event)">
+        </app-adherent-card>
+    }  @empty {
+        <div>Aucun adhérent trouvé !</div>
+    }
+
+} @else {
+    <div>Chargement !</div>
 }
 
-@for (adherent of adherentsFiltres; track adherent.id) {
-    <app-adherent-card [adherent]="adherent" (voirDetails)="gererVoirDetail($event)">
-    </app-adherent-card>
-} @empty {
-    <div>Aucun adhérent trouvé</div>
-}
+
 
