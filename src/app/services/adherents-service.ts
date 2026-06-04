@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Adherent } from '../models/adherent';
+import { HttpClient } from '@angular/common/http';
 
 const adherents: Adherent[] = [
   {
@@ -63,8 +64,16 @@ const adherents: Adherent[] = [
   providedIn: 'root',
 })
 export class AdherentsService {
+
+  private apiBaseUrl: string = 'https://formation-angular.webturtle.fr';
+
+  constructor(private httpClient: HttpClient) {}
   
   getAll(): Adherent[] {
+    this.httpClient.get<Adherent>(`${this.apiBaseUrl}/items/adherents`).subscribe((response) => {
+      console.log(response);
+    });
+    
     return adherents;
   }
 
