@@ -31,4 +31,10 @@ export class AdherentsService {
     return this.httpClient.delete<null>(`${this.baseUrl}/items/adherents/${id}`);
   }
 
+  search(terme: string): Observable<Adherent[]> {
+    return this.httpClient.get<DirectusResponse<Adherent[]>>(`${this.baseUrl}/items/adherents?search=${terme}`).pipe(
+      map(response => response.data)
+    );
+  }
+
 }
