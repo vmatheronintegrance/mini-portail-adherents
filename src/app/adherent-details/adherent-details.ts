@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AdherentsService } from '../services/adherents-service';
 import { Adherent } from '../models/adherent';
 import { StatutPipe } from '../pipes/statut-pipe';
@@ -18,7 +18,8 @@ export class AdherentDetails {
   error = signal<boolean>(false);
 
   constructor(private activatedRoute: ActivatedRoute,
-              private adherentsService: AdherentsService
+              private adherentsService: AdherentsService,
+              private router: Router
   ) {}
 
   ngOnInit() {
@@ -31,4 +32,13 @@ export class AdherentDetails {
       })
     );
   }
+
+  supprimerAdherent($event: Adherent) {
+    this.adherentsService.delete($event.id).subscribe(response => {
+      console.log(response);
+      this.router.navigate(['/adherents']);
+    });
+
+  }
+
 }
