@@ -9,7 +9,9 @@
     <p>Nombre d'adhérents : {{ adherentsFiltres().length }} !</p>
 
     @for (adherent of adherentsFiltres(); track adherent.id) {
-        <app-adherent-card [adherent]="adherent" (voirDetails)="gererVoirDetail($event)">
+        <app-adherent-card [adherent]="adherent" 
+                            (voirDetails)="gererVoirDetail($event)"
+                            (suppressionAdherent)="supprimerAdherent($event)">
         </app-adherent-card>
     }  @empty {
         <div>Aucun adhérent trouvé !</div>

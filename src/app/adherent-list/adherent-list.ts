@@ -3,7 +3,7 @@ import { AdherentCard } from "../adherent-card/adherent-card";
 import { Adherent } from '../models/adherent';
 import { AdherentsService } from '../services/adherents-service';
 import { Router } from '@angular/router';
-import { Observable, Subscription, tap } from 'rxjs';
+import { Observable, Subscription, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -17,37 +17,37 @@ export class AdherentList implements OnInit, OnDestroy {
   
   adherents: Adherent[] = [];
   adherentsFiltres = signal<Adherent[]>([]);
-  // selectedAdherent?: Adherent;
 
-  // subscription: Subscription | undefined;
+
+  subscription: Subscription | null = null;
 
   constructor(private adherentsService: AdherentsService,
               private router: Router) {}
 
   
   ngOnInit(): void {
-    this.adherents$ = this.adherentsService.getAll().pipe(
+    this.adherents$ = this.loadAdherentsObs();
+  }
+
+  loadAdherentsObs(): Observable<Adherent[]> {
+     return this.adherentsService.getAll().pipe(
       tap((data) => {
         this.adherents = data;
         this.adherentsFiltres.set(data);
       })
     );
-
-    // this.adherents$ = this.adherentsService.getAll().pipe(
-    //   tap((data) => {
-    //     this.adherents = data;
-    //     this.adherentsFiltres.set(data);
-    //   })
-    // );
-
-    // this.subscription = this.adherentsService.getAll().subscribe(resultat => {
-    //   this.adherents = resultat;
-    //   this.adherentsFiltres.set(resultat);
-    // });
   }
 
-  ngOnDestroy(): void {
-    // this.subscription?.unsubscribe();
+  supprimerAdherent($id: number): void {
+    this.adherents$ = this.adherentsService.delete($id).pipe(
+      switchMap(() => {
+        return this.loadAdherentsObs();
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
   gererVoirDetail($event: Adherent) {
@@ -64,15 +64,6 @@ export class AdherentList implements OnInit, OnDestroy {
   onAdherentSelect(event: Event) {
     const select = event.target as HTMLSelectElement;
     const adherentId = Number(select.value);
-
-    // if (!select.value) {
-    //   this.selectedAdherent = undefined;
-    //   return;
-    // }
-
-    // this.selectedAdherent = this.adherents.find(
-    //   adherent => adherent.id === adherentId
-    // );
   }
  
 }

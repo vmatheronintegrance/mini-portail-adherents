@@ -1,10 +1,10 @@
+import { AsyncPipe, DatePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AdherentsService } from '../services/adherents-service';
+import { catchError, EMPTY, Observable, Subscription } from 'rxjs';
 import { Adherent } from '../models/adherent';
 import { StatutPipe } from '../pipes/statut-pipe';
-import { AsyncPipe, DatePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
-import { catchError, EMPTY, Observable, of } from 'rxjs';
+import { AdherentsService } from '../services/adherents-service';
 
 @Component({
   selector: 'app-adherent-details',
@@ -16,6 +16,8 @@ export class AdherentDetails {
 
   adherent$: Observable<Adherent> | undefined;
   error = signal<boolean>(false);
+
+  subscription: Subscription | null = null;
 
   constructor(private activatedRoute: ActivatedRoute,
               private adherentsService: AdherentsService,
@@ -34,11 +36,12 @@ export class AdherentDetails {
   }
 
   supprimerAdherent($event: Adherent) {
-    this.adherentsService.delete($event.id).subscribe(response => {
-      console.log(response);
+    this.subscription = this.adherentsService.delete($event.id).subscribe(response => {
       this.router.navigate(['/adherents']);
     });
-
   }
 
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 }

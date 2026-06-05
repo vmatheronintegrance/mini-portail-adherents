@@ -2,6 +2,8 @@ import { Component, EventEmitter, input, Input, OnChanges, OnDestroy, output, Ou
 import { Adherent } from '../models/adherent';
 import { DatePipe, JsonPipe, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { StatutPipe } from '../pipes/statut-pipe';
+import { AdherentsService } from '../services/adherents-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-adherent-card',
@@ -11,14 +13,10 @@ import { StatutPipe } from '../pipes/statut-pipe';
 })
 export class AdherentCard {
 
-  // @Input() adherent: Adherent | undefined;
-
   adherent = input<Adherent | undefined>();
   voirDetails = output<Adherent>();
+  suppressionAdherent = output<number>();
 
-  // @Output() voirDetails = new EventEmitter<Adherent>;
-   
-  estNouveau(dateAdhesion: string): boolean {
-    return true;
-  }
+  constructor(private adherentService: AdherentsService) {}
+
 }
