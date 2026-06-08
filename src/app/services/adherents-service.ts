@@ -28,6 +28,7 @@ export class AdherentsService {
   }
 
   delete(id: number): Observable<null> {
+    // return of(null);
     return this.httpClient.delete<null>(`${this.baseUrl}/items/adherents/${id}`);
   }
 

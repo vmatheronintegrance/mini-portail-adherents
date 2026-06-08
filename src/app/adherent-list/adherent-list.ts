@@ -57,14 +57,15 @@ export class AdherentList implements OnInit, OnDestroy {
   }
 
   supprimerAdherent($id: number): void {
+    const adherent = this.adherentsFiltres().find((adh) => adh.id == $id);
+    
     this.adherents$ = this.adherentsService.delete($id).pipe(
+      tap(() => {
+        this.notificationsService.afficher(`Adhérent Supprimé : ${adherent?.prenom} ${adherent?.nom}`);
+      }),
       switchMap(() => {
         return this.loadAdherentsObs();
       }),
-      tap(() => {
-        const adherent = this.adherentsFiltres().find((adh) => adh.id == $id);
-        this.notificationsService.afficher(`Adhérent Supprimé : ${adherent?.prenom} ${adherent?.nom}`);
-      })
     );
   }
 
