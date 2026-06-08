@@ -38,4 +38,13 @@ export class AdherentsService {
     );
   }
 
+  create(adherent: Adherent): Observable<DirectusResponse<Adherent>> {
+    return this.httpClient.post<DirectusResponse<Adherent>>(`${this.baseUrl}/items/adherents`, adherent);
+  }
+
+  update(adherent: Adherent): Observable<DirectusResponse<Adherent>> {
+    // Utilisation de la méthode HTTP : PATCH (Convention Rest)
+    return this.httpClient.patch<DirectusResponse<Adherent>>(`${this.baseUrl}/items/adherents/${adherent.id}`, adherent);
+  }
+
 }

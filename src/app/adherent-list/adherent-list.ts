@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { AdherentCard } from "../adherent-card/adherent-card";
 import { Adherent } from '../models/adherent';
 import { AdherentsService } from '../services/adherents-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { debounceTime, distinctUntilChanged, Observable, Subject, Subscription, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { NotificationsService } from '../services/notifications-service';
@@ -10,7 +10,7 @@ import { Notification } from '../notification/notification';
 
 @Component({
   selector: 'app-adherent-list',
-  imports: [AdherentCard, AsyncPipe, Notification],
+  imports: [AdherentCard, AsyncPipe, Notification, RouterLink],
   templateUrl: './adherent-list.html',
   styleUrl: './adherent-list.scss',
 })

@@ -4,6 +4,7 @@ import { AdherentList } from './adherent-list/adherent-list';
 import { Profil } from './profil/profil';
 import { AdherentDetails } from './adherent-details/adherent-details';
 import { Error404 } from './error404/error404';
+import { AdherentForm } from './adherent-form/adherent-form';
 
 export const routes: Routes = [
     {
@@ -16,7 +17,7 @@ export const routes: Routes = [
     },
     {
         path: "adherents/nouveau",
-        component: AdherentDetails
+        component: AdherentForm
     },
     {
         path: "adherents/:id",

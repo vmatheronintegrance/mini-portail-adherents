@@ -11,17 +11,17 @@ import { AsyncPipe } from '@angular/common';
 })
 export class Notification {
   // Version 1
-  message$: Observable<string | null> | undefined;
+  // message$: Observable<string | null> | undefined;
 
-  constructor(private notificationService: NotificationsService) {}
+  // constructor(private notificationService: NotificationsService) {}
   
-  ngOnInit() {
-    this.message$ = this.notificationService.message$;
-  }
+  // ngOnInit() {
+  //   this.message$ = this.notificationService.message$;
+  // }
   
   // Version 2
-  // notificationsService = inject(NotificationsService);
-  // message$ = this.notificationsService.message$;
+  notificationsService = inject(NotificationsService);
+  message$ = this.notificationsService.message$;
   
   // Version 3
   // notificationsService = inject(NotificationsService);

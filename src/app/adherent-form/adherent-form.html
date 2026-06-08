@@ -1,0 +1,76 @@
+<form (submit)="submit($event)" [formGroup]="formulaire">
+    <div class="mb-3">
+        <label for="nom" class="form-label">Nom de Famille<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="nom" formControlName='nom'>
+        @if (inputInvalid('nom')) {
+            <div class="text-danger">Le champ est invalide</div>
+        }
+    </div>
+    
+    <div class="mb-3">
+        <label for="prenom" class="form-label">Prénom<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="prenom" formControlName='prenom'>
+        @if (inputInvalid('prenom')) {
+            <div class="text-danger">Le champ est invalide</div>
+        }
+    </div>
+    
+    <div class="mb-3">
+        <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
+        <input type="email" class="form-control" id="email" formControlName='email'>
+        @if (inputInvalid('email')) {
+            <div class="text-danger">Le champ est invalide</div>
+        }
+    </div>
+    
+    <div class="mb-3">
+        <label for="dateAdhesion" class="form-label">Date d'adhésion<span class="text-danger">*</span></label>
+        <input type="date" class="form-control" id="dateAdhesion" formControlName='dateAdhesion'>
+        @if (inputInvalid('dateAdhesion')) {
+            <div class="text-danger">Le champ est invalide</div>
+        }
+    </div>
+    
+    <div class="mb-3">
+        <label for="statut" class="form-label">Statut<span class="text-danger">*</span></label>
+        <select class="form-select" aria-label="Sélectionnez..." id="statut" formControlName='statut'>
+            <option value="" selected>Sélectionnez...</option>
+            <option value="actif">Actif</option>
+            <option value="inactif">Inactif</option>
+            <option value="en_attente">En attente</option>
+        </select>
+        @if (inputInvalid('statut')) {
+            <div class="text-danger">Le champ est invalide</div>
+        }
+    </div>
+    
+    <div class="mb-3">
+        <label for="type" class="form-label">Type<span class="text-danger">*</span></label>
+        <select class="form-select" aria-label="Sélectionnez..." id="type" formControlName='type'>
+            <option value="" selected>Sélectionnez...</option>
+            <option value="particulier">Particulier</option>
+            <option value="professionnel">Professionnel</option>
+        </select>
+        @if (inputInvalid('type')) {
+            <div class="text-danger">Le champ est invalide</div>
+        }
+    </div>   
+    
+    <div class="mb-3">
+        <label for="telephone" class="form-label">Téléphone</label>
+        <input type="text" class="form-control" id="telephone" formControlName='telephone'>
+    </div>
+    <div class="mb-3">
+        <label for="ville" class="form-label">Ville</label>
+        <input type="text" class="form-control" id="ville" formControlName='ville'>
+    </div>
+    <div class="mb-3">
+        <label for="notes" class="form-label">Notes</label>
+        <input type="text" class="form-control" id="notes" formControlName='notes'>
+    </div>
+
+    
+    <button type="submit" class="btn btn-outline-primary mb-5" [disabled]="formulaire.invalid">
+        {{ isEdition ? "Mettre à jour" : "Créer"}}
+    </button>
+</form>
