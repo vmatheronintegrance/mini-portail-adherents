@@ -5,10 +5,12 @@ import { AdherentsService } from '../services/adherents-service';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, Observable, Subject, Subscription, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { NotificationsService } from '../services/notifications-service';
+import { Notification } from '../notification/notification';
 
 @Component({
   selector: 'app-adherent-list',
-  imports: [AdherentCard, AsyncPipe],
+  imports: [AdherentCard, AsyncPipe, Notification],
   templateUrl: './adherent-list.html',
   styleUrl: './adherent-list.scss',
 })
@@ -25,6 +27,7 @@ export class AdherentList implements OnInit, OnDestroy {
   searchSubscription: Subscription | null = null;
 
   constructor(private adherentsService: AdherentsService,
+              private notificationsService: NotificationsService,
               private router: Router) {}
 
   
@@ -42,7 +45,6 @@ export class AdherentList implements OnInit, OnDestroy {
         );
       })
     ).subscribe();
-    
   }
 
   loadAdherentsObs(): Observable<Adherent[]> {
@@ -58,6 +60,10 @@ export class AdherentList implements OnInit, OnDestroy {
     this.adherents$ = this.adherentsService.delete($id).pipe(
       switchMap(() => {
         return this.loadAdherentsObs();
+      }),
+      tap(() => {
+        const adherent = this.adherentsFiltres().find((adh) => adh.id == $id);
+        this.notificationsService.afficher(`Adhérent Supprimé : ${adherent?.prenom} ${adherent?.nom}`);
       })
     );
   }

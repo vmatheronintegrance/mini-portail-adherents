@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Adherent } from '../models/adherent';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { DirectusResponse } from '../models/directus-response';
 
 
