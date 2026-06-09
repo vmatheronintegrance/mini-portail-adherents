@@ -58,7 +58,10 @@ export class AdherentForm implements OnDestroy, OnInit {
 
       if(this.isEdition) {
         // Mise à jour de la variable locale adherent en utilisant l'id passé via l'adhérent en input du composant
-        adherent = {...adherent, id: this.adherent?.id};
+        adherent = {
+          ...adherent, 
+          id: this.adherent?.id
+        };
 
         this.subscription = this.adherentsService.update(adherent).pipe(
           tap(() => {
