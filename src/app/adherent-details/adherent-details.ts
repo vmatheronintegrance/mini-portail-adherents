@@ -5,7 +5,7 @@ import { catchError, EMPTY, Observable, Subscription } from 'rxjs';
 import { AdherentForm } from "../adherent-form/adherent-form";
 import { Adherent } from '../models/adherent';
 import { StatutPipe } from '../pipes/statut-pipe';
-import { AdherentsService } from '../services/adherents-service';
+import { AdherentsService } from './../services/adherents-service';
 
 @Component({
   selector: 'app-adherent-details',
@@ -35,6 +35,7 @@ export class AdherentDetails {
         return EMPTY;
       })
     );
+
   }
 
   supprimerAdherent($event: Adherent) {
