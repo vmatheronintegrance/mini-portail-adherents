@@ -1,4 +1,4 @@
-import { Component, inject, Input, input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, input, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdherentsService } from '../services/adherents-service';
 import { catchError, Subscription, tap } from 'rxjs';
@@ -20,7 +20,7 @@ export class AdherentForm implements OnDestroy, OnInit {
   router = inject(Router);
   
   // Inputs
-  @Input() adherent: Adherent | undefined;
+  adherent = input<Adherent | undefined>(undefined);
 
 
   // Varibales et formulaire
@@ -40,8 +40,8 @@ export class AdherentForm implements OnDestroy, OnInit {
   });
 
   ngOnInit(): void {
-    if(this.adherent) {
-      this.formulaire.patchValue(this.adherent);
+    if(this.adherent()) {
+      this.formulaire.patchValue(this.adherent() as Adherent);
       this.isEdition = true;
     }
   }
@@ -60,7 +60,7 @@ export class AdherentForm implements OnDestroy, OnInit {
         // Mise à jour de la variable locale adherent en utilisant l'id passé via l'adhérent en input du composant
         adherent = {
           ...adherent, 
-          id: this.adherent?.id
+          id: this.adherent()?.id
         };
 
         this.subscription = this.adherentsService.update(adherent).pipe(
